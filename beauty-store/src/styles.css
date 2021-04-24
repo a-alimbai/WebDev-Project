@@ -1,1 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+body { margin: 0 }
+a { cursor: pointer }
+button { margin: 4px 2px }
+input { margin: 3px 4px; vertical-align: center }
+nav { padding: 6px 20px; }
+.is-invalid {border: red 2px solid}
+i {font-size: 15px}
