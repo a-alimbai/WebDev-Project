@@ -1,0 +1,98 @@
+<div>
+    <div *ngIf="toedit === 0">
+      <h3>Create user</h3>
+      <div>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div>
+            <label>First Name</label>
+            <input [(ngModel)]="fn" type="text" formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"/>
+            <div *ngIf="submitted && f.firstName.errors">
+              <i *ngIf="f.firstName.errors.required">First name is required</i>
+            </div>
+          </div>
+          <div>
+            <label>Last Name</label>
+            <input [(ngModel)]="sn" type="text" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"/>
+            <div *ngIf="submitted && f.lastName.errors">
+              <i *ngIf="f.lastName.errors.required">Last name is required</i>
+            </div>
+          </div>
+          <div>
+            <label>Username</label>
+            <input [(ngModel)]="username" type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
+            <div *ngIf="submitted && f.username.errors">
+              <i *ngIf="f.username.errors.required">Username is required</i>
+            </div>
+          </div>
+          <div>
+            <label>Password</label>
+            <input [(ngModel)]="password" type="password" formControlName="password"
+                   [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+            <div *ngIf="submitted && f.password.errors">
+              <i *ngIf="f.password.errors.required">Password is required</i>
+            </div>
+          </div>
+          <button [disabled]="loading">
+            <span *ngIf="loading"></span>
+            Submit
+          </button>
+          <div *ngIf="error">{{error}}</div>
+        </form>
+      </div>
+    </div>
+    <div *ngIf="toedit !== 0">
+      <h3>Edit user</h3>
+      <div>
+        <form [formGroup]="eloginForm" (ngSubmit)="onSubmitChanges()">
+          <div>
+            <label>First Name</label>
+            <input [(ngModel)]="efn" type="text" formControlName="efirstName" [ngClass]="{ 'is-invalid': esubmitted && ef.efirstName.errors }"/>
+            <div *ngIf="esubmitted && ef.efirstName.errors">
+              <i *ngIf="ef.efirstName.errors.required">First name is required</i>
+            </div>
+          </div>
+          <div>
+            <label>Last Name</label>
+            <input [(ngModel)]="esn" type="text" formControlName="elastName" [ngClass]="{ 'is-invalid': esubmitted && ef.elastName.errors }"/>
+            <div *ngIf="esubmitted && ef.elastName.errors">
+              <i *ngIf="ef.elastName.errors.required">Last name is required</i>
+            </div>
+          </div>
+          <div>
+            <label>Username</label>
+            <input [(ngModel)]="eusername" type="text" formControlName="eusername" [ngClass]="{ 'is-invalid': esubmitted && ef.eusername.errors }"/>
+            <div *ngIf="esubmitted && ef.eusername.errors">
+              <i *ngIf="ef.eusername.errors.required">Username is required</i>
+            </div>
+          </div>
+          <div>
+            <label>Password</label>
+            <input [(ngModel)]="epassword" formControlName="epassword"
+                   [ngClass]="{ 'is-invalid': esubmitted && ef.epassword.errors }"/>
+            <div *ngIf="esubmitted && ef.epassword.errors">
+              <i *ngIf="ef.epassword.errors.required">Password is required</i>
+            </div>
+          </div>
+          <button [disabled]="loading">
+            <span *ngIf="loading"></span>
+            Submit
+          </button>
+          <button [disabled]="loading">
+            <span *ngIf="loading"></span>
+            Log out
+          </button>
+          <div *ngIf="eerror">{{eerror}}</div>
+        </form>
+        <button (click)="toedit = 0">Close</button>
+  
+      </div>
+    </div>
+    <h3>List of users</h3>
+    <div>
+      <div *ngIf="loading"></div>
+      <ul *ngIf="users">
+        <li *ngFor="let user of users">{{user.firstName}} {{user.lastName}} <button [disabled]="loading" (click)="toedit = user.id; efn = user.firstName; esn = user.lastName; eusername = user.username; epassword = user.password">Edit</button> <button [disabled]="loading" (click)="deleteUser(user.id)">Delete</button></li>
+      </ul>
+    </div>
+  </div>
+  
